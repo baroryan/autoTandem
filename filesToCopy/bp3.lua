@@ -31,8 +31,8 @@ function BP3.new(params)
     self.H0=params.H0
     self.H=params.H
     self.h=params.h
-    self.a0=params.a0
-    self.b=params.b
+    --self.a0=params.a0
+    --self.b=params.b
 
     return self
 end
