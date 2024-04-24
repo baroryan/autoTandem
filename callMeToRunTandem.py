@@ -78,5 +78,5 @@ if __name__ == "__main__":
     
     model.WriteFiles()
     model.ComputeMesh(args.gmshbin)
-    #model.RunEQSimulation(args.tandembin)
+    model.RunEQSimulation(args.tandembin)
 
