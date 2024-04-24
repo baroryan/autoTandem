@@ -10,6 +10,7 @@ import autoTandemSimulation as autoTandem
 import argparse
 from pint import UnitRegistry
 import os
+import numpy as np
 #%%
 def create_range_validator(min_value=None, max_value=None):
     def validate_range(value):
@@ -39,15 +40,18 @@ if __name__ == "__main__":
     parser.add_argument("--H2", type=create_range_validator(0,100), help="Enter depth range for the deepest section [km]",required=True)
     parser.add_argument("--depthVarying"  ,help="Check true or false if lame parameters change with depth [true/false]",default=True)
     parser.add_argument("--path",type=str,  help="set a path where everything will run",required=True)
-    parser.add_argument("--endTime",type=create_range_validator(0,None) , help="Set number of years to run simlation [yr]",default=1000)
+    parser.add_argument("--endTime",type=create_range_validator(0,None) , help="simlation ran time [years]",default=1000)
     parser.add_argument("--Ls", type=create_range_validator(0.02,10), help="Max mesh size along surface[km] - larger vaule coraser mesh",default=0.6)
     parser.add_argument("--Lf", type=create_range_validator(0.02,10), help="Max mesh size along fault[km] - larger vaule coraser mesh",default=0.6)
     parser.add_argument("--gf_dir",type=str , help="Set a green function dir- if not set will not use gf",default=None)
     parser.add_argument("--dr",type=create_range_validator(0,10),  help="plot every dr along the fault [km]",default=2)
     args = parser.parse_args()
     
-    if not os.path.exists(args.path):
-        os.makedirs(args.path)
+    if not os.path.exists(args.path+"/outputs"):
+        os.makedirs(args.path+"/outputs")
+        
+    #if not os.path.exists(args.path+"/outputs"):
+    #    os.makedirs(args.path)
     
     
     ## converstion to tandem units
@@ -56,6 +60,13 @@ if __name__ == "__main__":
     
     endTime=ureg.Quantity(args.endTime, ureg.year)
     args.endTime=endTime.to( ureg.sec).magnitude
+    s=np.sin(np.deg2rad(args.dipAngle))
+    
+    maxDistance=1.2*(args.H0+args.H1+args.H2)/s
+    maxCanAccomdate=(100/1.2)*s
+    
+    if maxDistance > 100:
+        raise ValueError("H0+H1+H2 is too deep please change so smaller than "+str(np.round(maxCanAccomdate,1)))
     
     
     dictArgs=vars(args)
@@ -63,4 +74,5 @@ if __name__ == "__main__":
     model=autoTandem.bp3(**dictArgs)
     
     model.WriteFiles()
+    model.ComputeMesh()
 

@@ -52,8 +52,8 @@ class bp3:
             
         return return_code
         
-    def GenerateMesh(self,logfile='meshGeneration.log'):
-        logfile=self.path+logfile
+    def ComputeMesh(self,logfile='/meshGeneration.log'):
+        logfile=self.path+"/outputs/"+logfile
         command = ['gmsh','-2','bp3.geo','-setnumber', 'dip', str(self.dipAngle),'-setnumber', 'Lf', str(self.Lf),'-setnumber', 'Ls', str(self.Ls)]
         return_code=self.RunOSCommand(command,logfile)
             
@@ -83,8 +83,8 @@ class bp3:
         
         
         
-    def RunEQSimulation(self,logfile='tandemSimulation.log'):
-        logfile=self.path+logfile
+    def RunEQSimulation(self,logfile='/tandemSimulation.log'):
+        logfile=self.path+"/outputs/"+logfile
         command = ['tandem', 'bp3.toml','--mode', 'QDGreen','--gf_checkpoint_prefix', 'gf/', '--petsc', '-ts_monitor', '-options_file', 'rk45.cfg', '-options_file', 'lu_mumps.cf']
         
         if self.gf_dir is None:
