@@ -46,6 +46,7 @@ if __name__ == "__main__":
     parser.add_argument("--gf_dir",type=str , help="Set a green function dir- if not set will not use gf",default=None)
     parser.add_argument("--dr",type=create_range_validator(0,10),  help="plot every dr along the fault [km]",default=2)
     parser.add_argument("--tandembin",type=str,  help="tandem binary path",default="/expanse/lustre/projects/usc143/qwxdev/apps/expanse/rocky8.8/tandem/main_17c42dc9ae0ec519dcc1b5732681b2e4054666f1/opt/2d/p5/app/tandem")
+    parser.add_argument("--gmshbin",type=str,  help="gmsh binary path",default="gmsh")
     
     args = parser.parse_args()
     

@@ -52,9 +52,9 @@ class bp3:
             
         return return_code
         
-    def ComputeMesh(self,logfile='/meshGeneration.log'):
+    def ComputeMesh(self,gmshBin,logfile='/meshGeneration.log'):
         logfile=self.path+"/outputs/"+logfile
-        command = ['gmsh','-2','bp3.geo','-setnumber', 'dip', str(self.dipAngle),'-setnumber', 'Lf', str(self.Lf),'-setnumber', 'Ls', str(self.Ls)]
+        command = [gmshBin,'-2','bp3.geo','-setnumber', 'dip', str(self.dipAngle),'-setnumber', 'Lf', str(self.Lf),'-setnumber', 'Ls', str(self.Ls)]
         return_code=self.RunOSCommand(command,logfile)
             
         if return_code == 0:
