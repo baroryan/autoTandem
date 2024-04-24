@@ -73,6 +73,8 @@ if __name__ == "__main__":
     
     
     dictArgs=vars(args)
+    tandembin=args.tandembin
+    gmshbin=args.gmshbin
     
     del dictArgs['tandembin']
     del dictArgs['gmshbin']
@@ -80,6 +82,6 @@ if __name__ == "__main__":
     model=autoTandem.bp3(**dictArgs)
     
     model.WriteFiles()
-    model.ComputeMesh(args.gmshbin)
-    model.RunEQSimulation(args.tandembin)
+    model.ComputeMesh(gmshbin)
+    model.RunEQSimulation(tandembin)
 
