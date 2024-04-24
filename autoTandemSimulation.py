@@ -17,6 +17,7 @@ import glob
 import readtandemoutput
 import xarray as xr
 import matplotlib.pyplot as plt
+import os
 #%%
 
 class bp3:
@@ -38,6 +39,7 @@ class bp3:
         self.Lf=Lf
         self.Ls=Ls
         self.gf_dir=gf_dir
+        self.homeDir = os.path.dirname(__file__)
         
         
     def RunOSCommand(self,command,logfile):
@@ -100,10 +102,10 @@ class bp3:
         
     def WriteFiles(self):
         
-        shutil.copy("filesToCopy/bp3.lua",self.path+"/bp3.lua")
-        shutil.copy("filesToCopy/bp3.geo",self.path+"/bp3.geo")
-        shutil.copy("filesToCopy/lu_mumps.cfg",self.path+"/lu_mumps.cfg")
-        shutil.copy("filesToCopy/rk45.cfg",self.path+"/rk45.cfg")
+        shutil.copy(self.homeDir+"/filesToCopy/bp3.lua",self.path+"/bp3.lua")
+        shutil.copy(self.homeDir+"/filesToCopy/bp3.geo",self.path+"/bp3.geo")
+        shutil.copy(self.homeDir+"/filesToCopy/lu_mumps.cfg",self.path+"/lu_mumps.cfg")
+        shutil.copy(self.homeDir+"/filesToCopy/rk45.cfg",self.path+"/rk45.cfg")
         luaFotter="\n -- adding user choice \n" + self.LuaFooter()
         toml=self.TomlHeader()+self.TomlBody()+self.TomlFotter()
 
