@@ -85,7 +85,7 @@ class bp3:
         
     def RunEQSimulation(self,tandemBinaryPath,logfile='/tandemSimulation.log'):
         logfile=self.path+"/outputs/"+logfile
-        command = [tandemBinaryPath, 'bp3.toml','--mode', 'QDGreen','--gf_checkpoint_prefix', 'gf/', '--petsc', '-ts_monitor', '-options_file', 'rk45.cfg', '-options_file', 'lu_mumps.cf']
+        command = [tandemBinaryPath, 'bp3.toml','--mode', 'QDGreen','--gf_checkpoint_prefix', 'gf/', '--petsc', '-ts_monitor', '-options_file', 'rk45.cfg', '-options_file', 'lu_mumps.cfg']
         
         if self.gf_dir is None:
             command=command[:2] + command[6:]
