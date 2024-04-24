@@ -43,7 +43,7 @@ if __name__ == "__main__":
     parser.add_argument("--endTime",type=create_range_validator(0,None) , help="simlation ran time [years]",default=1000)
     parser.add_argument("--Ls", type=create_range_validator(0.02,10), help="Min mesh size along surface[km] - larger vaule coraser mesh",default=0.6)
     parser.add_argument("--Lf", type=create_range_validator(0.02,10), help="Min mesh size along fault[km] - larger vaule coraser mesh",default=0.6)
-    parser.add_argument("--gf_dir",type=str , help="Set a green function dir- if not set will not use gf",default=None)
+    parser.add_argument("--gf_dir",type=str , help="Set a green function dir - if not set will not use gf",default=None)
     parser.add_argument("--dr",type=create_range_validator(0,10),  help="plot every dr along the fault [km]",default=2)
     parser.add_argument("--tandembin",type=str,  help="tandem binary path",default="/expanse/lustre/projects/usc143/qwxdev/apps/expanse/rocky8.8/tandem/main_17c42dc9ae0ec519dcc1b5732681b2e4054666f1/opt/2d/p5/app/tandem")
     parser.add_argument("--gmshbin",type=str,  help="gmsh binary path",default="gmsh")
@@ -77,6 +77,6 @@ if __name__ == "__main__":
     model=autoTandem.bp3(**dictArgs)
     
     model.WriteFiles()
-    model.ComputeMesh()
+    model.ComputeMesh(args.gmshbin)
     #model.RunEQSimulation(args.tandembin)
 
