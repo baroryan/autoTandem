@@ -74,6 +74,9 @@ if __name__ == "__main__":
     
     dictArgs=vars(args)
     
+    del dictArgs['tandembin']
+    del dictArgs['gmshbin']
+    
     model=autoTandem.bp3(**dictArgs)
     
     model.WriteFiles()
