@@ -73,11 +73,17 @@ class bp3:
         coseismic={'color':'blue','alpha':0.5,'linewidth':0.5}
         interseismic={'color':'red','alpha':0.5,'linewidth':0.5}
         
-        fig,ax=plt.subplots(2,1)
+        fig,ax=plt.subplots(2,1,figsize=(10,10))
         readtandemoutput.PlotSlipFrequnelty(ds['slip0'].values, ds['Time'].values, 5, np.abs(ds['z'].values),plotAttributes=coseismic,ax=ax[0],coseismic=True)
         readtandemoutput.PlotSlipFrequnelty(ds['slip0'].values, ds['Time'].values, 3600*24*365*5, np.abs(ds['z'].values),plotAttributes=interseismic,ax=ax[0],coseismic=False)
         highest_velocity = ds['slip-rate0'].max(['z']).values
         ax[1].plot(ds['years'],np.log10(highest_velocity))
+        
+        ax[1].set_ylabel('Log10(max Vel[m/s]) ')
+        ax[1].set_xlabel('Time [years] ')
+        
+        ax[0].set_ylabel('Depth[km]')
+        ax[0].set_xlabel('Slip [m]')
                    
         fig.savefig(self.path+"//outputs/slipMaxVel.pdf",dpi=300)
         
