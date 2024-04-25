@@ -79,7 +79,7 @@ class bp3:
         highest_velocity = ds['slip-rate0'].max(['z']).values
         ax[1].plot(ds['years'],np.log10(highest_velocity))
                    
-        fig.savefig(self.path+"slipMaxVel.pdf",dpi=300)
+        fig.savefig(self.path+"/slipMaxVel.pdf",dpi=300)
         
         
         

@@ -84,4 +84,5 @@ if __name__ == "__main__":
     model.WriteFiles()
     model.ComputeMesh(gmshbin)
     model.RunEQSimulation(tandembin)
+    model.PlotSlipMaxVel()
 
