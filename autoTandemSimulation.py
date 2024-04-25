@@ -43,7 +43,8 @@ class bp3:
         
         
     def RunOSCommand(self,command,logfile):
-
+        """ generic function to os processes """
+        
         with open(logfile, 'w') as f:
             # Start the process in the specified directory
             process = subprocess.Popen(command, stdout=f, stderr=subprocess.STDOUT, text=True, cwd=self.path)
@@ -53,6 +54,8 @@ class bp3:
         return return_code
         
     def ComputeMesh(self,gmshBin,logfile='/meshGeneration.log'):
+        """ compute the mesh based on paramters like dip angle and mesh size """
+        
         logfile=self.path+"/outputs/"+logfile
         command = [gmshBin,'-2','bp3.geo','-setnumber', 'dip', str(self.dipAngle),'-setnumber', 'Lf', str(self.Lf),'-setnumber', 'Ls', str(self.Ls)]
         return_code=self.RunOSCommand(command,logfile)
@@ -65,6 +68,7 @@ class bp3:
             raise ValueError("byebye")
         
     def PlotSlipMaxVel(self):
+        """ plotting slip along fault and max vel """
         
         ds=readtandemoutput.ReturnDataSets(self.path+"/outputs/")
         ds = xr.concat(ds, dim=('z'))
@@ -91,6 +95,8 @@ class bp3:
         
         
     def RunEQSimulation(self,tandemBinaryPath,logfile='/tandemSimulation.log'):
+        """ run tandem simultion with or without gf """
+        
         logfile=self.path+"/outputs/"+logfile
         command = [tandemBinaryPath, 'bp3.toml','--mode', 'QDGreen','--gf_checkpoint_prefix', 'gf/', '--petsc', '-ts_monitor', '-options_file', 'rk45.cfg', '-options_file', 'lu_mumps.cfg']
         
@@ -108,13 +114,14 @@ class bp3:
         
         
     def WriteFiles(self):
+        """ this function copies and and write toml,lua ,geo and cfg params files """
         
         shutil.copy(self.homeDir+"/filesToCopy/bp3.lua",self.path+"/bp3.lua")
         shutil.copy(self.homeDir+"/filesToCopy/bp3.geo",self.path+"/bp3.geo")
         shutil.copy(self.homeDir+"/filesToCopy/lu_mumps.cfg",self.path+"/lu_mumps.cfg")
         shutil.copy(self.homeDir+"/filesToCopy/rk45.cfg",self.path+"/rk45.cfg")
         luaFotter="\n -- adding user choice \n" + self.LuaFooter()
-        toml=self.TomlHeader()+self.TomlBody()+self.TomlFotter()
+        toml=self.TomlHeader()+self.TomlBody()+self.TomlFotter() # gathering strings for toml file
 
         
         with open(self.path+'/bp3.toml', 'w') as file:
@@ -125,15 +132,22 @@ class bp3:
 
         
     def TomlHeader(self):
+        """ adds run time as a first line to the toml file """
+        
         return f"final_time = {self.endTime}"
     
     def TomlFotter(self):
-        Rmax=(1.2*(self.H0+self.H1+self.H2))/np.sin(np.deg2rad(self.dipAngle))
+        """ this function compute where to add sites along the fault for plotting """
+        
+        Rmax=(1.1*(self.H0+self.H1+self.H2))/np.sin(np.deg2rad(self.dipAngle))
         #print(Rmax)
         string=generateTomlFile.ComputePointsForPlanarFaultBasedOnDistanceAlongFault(self.dipAngle,dy=self.dr,ymin=0,ymax=Rmax)
         
         return string
     def LuaFooter(self):
+        """ this function add one line of code to the Lua file to based on dipAngle,slipRate and a-b params """
+        
+        
         if self.depthVarying is False:
             depthVarying='false'
         else:
@@ -144,6 +158,8 @@ class bp3:
         return output_line
     
     def TomlBody(self):
+        """ adding some lines to toml file """
+        
         string="""
 mesh_file = "bp3.msh"
 lib = "bp3.lua"

@@ -66,7 +66,7 @@ if __name__ == "__main__":
     s=np.sin(np.deg2rad(args.dipAngle))
     
     maxDistance=1.2*(args.H0+args.H1+args.H2)/s
-    maxCanAccomdate=(100/1.2)*s
+    maxCanAccomdate=(100/1.1)*s
     
     if maxDistance > 100:
         raise ValueError("H0+H1+H2 is too deep please change so smaller than "+str(np.round(maxCanAccomdate,1)))
