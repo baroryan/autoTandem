@@ -66,7 +66,7 @@ if __name__ == "__main__":
     args.endTime=endTime.to( ureg.sec).magnitude
     s=np.sin(np.deg2rad(args.dipAngle))
     
-    maxDistance=1.2*(args.H0+args.H1+args.H2)/s
+    maxDistance=1.1*(args.H0+args.H1+args.H2)/s
     maxCanAccomdate=(100/1.1)*s
     
     if maxDistance > 100:
