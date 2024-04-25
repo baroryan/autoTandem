@@ -13,6 +13,7 @@ import os
 import numpy as np
 #%%
 def create_range_validator(min_value=None, max_value=None):
+    """  checks if value between min and max values """
     def validate_range(value):
         try:
             fvalue = float(value)
