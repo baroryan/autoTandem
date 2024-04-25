@@ -34,7 +34,7 @@ if __name__ == "__main__":
     
     parser = argparse.ArgumentParser(description="Process input file for bp3 like tandem simulation")
     parser.add_argument("--dipAngle", type=create_range_validator(0,90), help="Enter a dip angle value between 0 and 90 [deg]",required=True)
-    parser.add_argument("--slipRate", type=create_range_validator(0,200), help="Enter slip rate between 0 and 200 [cm/yr]",required=True)
+    parser.add_argument("--slipRate", type=create_range_validator(-200,200), help="Enter slip rate between -200 and 200 [cm/yr]",required=True)
     parser.add_argument("--H0", type=create_range_validator(0,100), help="Enter depth range for the shallowest [km]",required=True)
     parser.add_argument("--H1", type=create_range_validator(0,100), help="Enter depth range for the middle section [km] ",required=True)
     parser.add_argument("--H2", type=create_range_validator(0,100), help="Enter depth range for the deepest section [km]",required=True)
@@ -45,8 +45,8 @@ if __name__ == "__main__":
     parser.add_argument("--Lf", type=create_range_validator(0.02,10), help="Min mesh size along fault[km] - larger vaule coraser mesh",default=0.6)
     parser.add_argument("--gf_dir",type=str , help="Set a green function dir - if not set will not use gf",default=None)
     parser.add_argument("--dr",type=create_range_validator(0,10),  help="plot every dr along the fault [km]",default=2)
-    parser.add_argument("--tandembin",type=str,  help="tandem binary path",default="tandem")
-    parser.add_argument("--gmshbin",type=str,  help="gmsh binary path",default="gmsh")
+    parser.add_argument("--tandembin",type=str,  help="tandem binary path - default is tandem",default="tandem")
+    parser.add_argument("--gmshbin",type=str,  help="gmsh binary path - default is gmsh",default="gmsh")
     
     args = parser.parse_args()
     

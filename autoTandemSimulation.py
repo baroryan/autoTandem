@@ -76,6 +76,7 @@ class bp3:
         fig,ax=plt.subplots(2,1,figsize=(10,10))
         readtandemoutput.PlotSlipFrequnelty(ds['slip0'].values, ds['Time'].values, 5, np.abs(ds['z'].values),plotAttributes=coseismic,ax=ax[0],coseismic=True)
         readtandemoutput.PlotSlipFrequnelty(ds['slip0'].values, ds['Time'].values, 3600*24*365*5, np.abs(ds['z'].values),plotAttributes=interseismic,ax=ax[0],coseismic=False)
+        
         highest_velocity = ds['slip-rate0'].max(['z']).values
         ax[1].plot(ds['years'],np.log10(highest_velocity))
         
