@@ -66,7 +66,7 @@ class bp3:
         
     def PlotSlipMaxVel(self):
         
-        ds=readtandemoutput.ReturnDataSets(self.path)
+        ds=readtandemoutput.ReturnDataSets(self.path+"/outputs/")
         ds = xr.concat(ds, dim=('z'))
         ds['years'] = ds['Time']/(3600*24*365.25)
         
@@ -79,7 +79,7 @@ class bp3:
         highest_velocity = ds['slip-rate0'].max(['z']).values
         ax[1].plot(ds['years'],np.log10(highest_velocity))
                    
-        fig.savefig(self.path+"/slipMaxVel.pdf",dpi=300)
+        fig.savefig(self.path+"//outputs/slipMaxVel.pdf",dpi=300)
         
         
         
