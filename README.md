@@ -1,0 +1,1 @@
+This simple package creates the input file and mesh for BP3 (thrust/normal planar fault) based on user input such as slip rate, dip angle, a-b parameters, and others. It eventually runs Tandem and plots slip and velocity results
