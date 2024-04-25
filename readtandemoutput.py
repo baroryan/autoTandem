@@ -98,6 +98,9 @@ def pandas_to_xarray(df, x_coord,z_coord, y_coord=None):
     return ds
 #%%
 def ReturnDataSets(path,pattern="fltst_*"):
+    
+    """ get csv file for each site and turns them into xarray datarray """
+    
     files=sorted(glob.glob(path+pattern))
     ds=[]
     for file in files:
