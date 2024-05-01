@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+ #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 Created on Wed Apr 24 08:59:11 2024
@@ -39,7 +39,7 @@ if __name__ == "__main__":
     parser.add_argument("--H0", type=create_range_validator(0,100), help="Enter depth range for the shallowest [km]",required=True)
     parser.add_argument("--H1", type=create_range_validator(0,100), help="Enter depth range for the middle section [km] ",required=True)
     parser.add_argument("--H2", type=create_range_validator(0,100), help="Enter depth range for the deepest section [km]",required=True)
-    parser.add_argument("--path",type=str,  help="set a path where everything will run",required=True)
+    parser.add_argument("--path",type=str,  help="set a path where everything will run",default="./")
     parser.add_argument("--endTime",type=create_range_validator(0,None) , help="simlation ran time [years]",required=True)
     parser.add_argument("--depthVarying"  ,help="Check true or false if lame parameters change with depth [true/false]",default=True)
     parser.add_argument("--Ls", type=create_range_validator(0.02,10), help="Min mesh size along surface[km] - larger vaule coraser mesh",default=0.6)

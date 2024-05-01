@@ -21,7 +21,7 @@ import os
 #%%
 
 class bp3:
-    def __init__(self,dipAngle=10,slipRate=1e-9,H0=2,H1=8,H2=8,depthVarying=False,endTime=1500*3600*24*365,dr=2,path=".",Lf=0.6,Ls=0.6,gf_dir=None):
+    def __init__(self,dipAngle=10,slipRate=1e-9,H0=2,H1=8,H2=8,depthVarying=False,endTime=1500*3600*24*365.25,dr=2,path=".",Lf=0.6,Ls=0.6,gf_dir=None):
         """ get dipAngle in deg
     slip rate in m/s
     H0,H,h in km 
