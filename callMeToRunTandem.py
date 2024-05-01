@@ -53,9 +53,7 @@ if __name__ == "__main__":
     
     if args.path is None:
         args.path=os.getcwd()
-        
-    print(args.path)
-    f
+
     
     if not os.path.exists(args.path+"/outputs"):
         os.makedirs(args.path+"/outputs")
