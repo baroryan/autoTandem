@@ -41,11 +41,17 @@ class bp3:
         self.gf_dir=gf_dir
         self.homeDir = os.path.dirname(__file__)
         
-        
+    def WriteCommandStringToFile(self,command,filename):
+        with open(filename, 'w') as file:
+            file.write("Command using: \n")
+            for item in command:
+                file.write("%s\n" % item)
+                
+            file.write("######## Log starting below ####### \n ")
     def RunOSCommand(self,command,logfile):
         """ generic function to run os processes """
         
-        with open(logfile, 'w') as f:
+        with open(logfile, 'a') as f:
             # Start the process in the specified directory
             process = subprocess.Popen(command, stdout=f, stderr=subprocess.STDOUT, text=True, cwd=self.path)
             # Wait for the process to complete
@@ -58,6 +64,7 @@ class bp3:
         
         logfile=self.path+"/outputs/"+logfile
         command = [gmshBin,'-2','bp3.geo','-setnumber', 'dip', str(self.dipAngle),'-setnumber', 'Lf', str(self.Lf),'-setnumber', 'Ls', str(self.Ls)]
+        self.WriteCommandStringToFile(command,logfile)
         return_code=self.RunOSCommand(command,logfile)
             
         if return_code == 0:
@@ -103,13 +110,15 @@ class bp3:
         if self.gf_dir is None:
             command=command[:2] + command[6:]
             
+        self.WriteCommandStringToFile(command,logfile)
+        
         return_code=self.RunOSCommand(command,logfile)
             
         if return_code == 0:
             print("Earth simulations finished successfully.")
             
         else:
-            print(f"EQ simulations failed with return code: {return_code}. Check mesh log file")
+            print(f"EQ simulations failed with return code: {return_code}. Check  log file")
             raise ValueError("byebye")
         
         
