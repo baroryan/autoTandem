@@ -39,13 +39,13 @@ if __name__ == "__main__":
     parser.add_argument("--H0", type=create_range_validator(0,100), help="Enter depth range for the shallowest [km]",required=True)
     parser.add_argument("--H1", type=create_range_validator(0,100), help="Enter depth range for the middle section [km] ",required=True)
     parser.add_argument("--H2", type=create_range_validator(0,100), help="Enter depth range for the deepest section [km]",required=True)
-    parser.add_argument("--path",type=str,  help="set a path where everything will run",default="./")
     parser.add_argument("--endTime",type=create_range_validator(0,None) , help="simlation ran time [years]",required=True)
+    parser.add_argument("--path",type=str,  help="set a path where everything will run",default=None)
     parser.add_argument("--depthVarying"  ,help="Check true or false if lame parameters change with depth [true/false]",default=True)
     parser.add_argument("--Ls", type=create_range_validator(0.02,10), help="Min mesh size along surface[km] - larger vaule coraser mesh",default=0.6)
     parser.add_argument("--Lf", type=create_range_validator(0.02,10), help="Min mesh size along fault[km] - larger vaule coraser mesh",default=0.6)
     parser.add_argument("--gf_dir",type=str , help="Set a green function dir - if not set will not use gf",default="gf")
-    parser.add_argument("--dr",type=create_range_validator(0,10),  help="plot every dr along the fault [km]",default=2)
+    parser.add_argument("--dr",type=create_range_validator(0,10),  help="plot every dr along the fault [km]",default=1)
     parser.add_argument("--tandembin",type=str,  help="tandem binary path - default is tandem",default="tandem")
     parser.add_argument("--gmshbin",type=str,  help="gmsh binary path - default is gmsh",default="gmsh")
     
@@ -68,6 +68,8 @@ if __name__ == "__main__":
     
     maxDistance=1.1*(args.H0+args.H1+args.H2)/s
     maxCanAccomdate=(100/1.1)*s
+    if args.path is None:
+        args.path=os.getcwd()
     
     if maxDistance > 100:
         raise ValueError("H0+H1+H2 is too deep please change so smaller than "+str(np.round(maxCanAccomdate,1)))

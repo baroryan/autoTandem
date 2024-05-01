@@ -43,7 +43,7 @@ class bp3:
         
         
     def RunOSCommand(self,command,logfile):
-        """ generic function to os processes """
+        """ generic function to run os processes """
         
         with open(logfile, 'w') as f:
             # Start the process in the specified directory
@@ -98,7 +98,7 @@ class bp3:
         """ run tandem simultion with or without gf """
         
         logfile=self.path+"/outputs/"+logfile
-        command = [tandemBinaryPath, 'bp3.toml','--mode', 'QDGreen','--gf_checkpoint_prefix', 'gf/', '--petsc', '-ts_monitor', '-options_file', 'rk45.cfg', '-options_file', 'lu_mumps.cfg']
+        command = [tandemBinaryPath, 'bp3.toml','--mode', 'QDGreen','--gf_checkpoint_prefix', self.gf_dir, '--petsc', '-ts_monitor', '-options_file', 'rk45.cfg', '-options_file', 'lu_mumps.cfg']
         
         if self.gf_dir is None:
             command=command[:2] + command[6:]
