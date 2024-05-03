@@ -27,7 +27,7 @@ The package is run by calling callMeToRunTandem.py and accepts several arguments
     
     --gf_dir GF_DIR       Set a green function dir - if not set, will not use gf
     
-    --dr DR               distance along the fault between fault probe stations [km]
+    --dr DR               distance between fault probe stations [km]
   
     --tandembin TANDEMBIN tandem binary path - default is tandem
   
