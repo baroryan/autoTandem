@@ -40,6 +40,10 @@ class bp3:
         self.Ls=Ls
         self.gf_dir=gf_dir
         self.homeDir = os.path.dirname(__file__)
+        self.LoadFilesToCopy()
+        
+    def LoadFilesToCopy(self):
+        self.filesToCopy="/filesToCopy/"
         
     def WriteCommandStringToFile(self,command,filename):
         with open(filename, 'w') as file:
@@ -125,10 +129,10 @@ class bp3:
     def WriteFiles(self):
         """ this function copies and and write toml,lua ,geo and cfg params files """
         
-        shutil.copy(self.homeDir+"/filesToCopy/bp3.lua",self.path+"/bp3.lua")
-        shutil.copy(self.homeDir+"/filesToCopy/bp3.geo",self.path+"/bp3.geo")
-        shutil.copy(self.homeDir+"/filesToCopy/lu_mumps.cfg",self.path+"/lu_mumps.cfg")
-        shutil.copy(self.homeDir+"/filesToCopy/rk45.cfg",self.path+"/rk45.cfg")
+        shutil.copy(self.homeDir+self.filesToCopy+"bp3.lua",self.path+"/bp3.lua")
+        shutil.copy(self.homeDir+self.filesToCopy+"bp3.geo",self.path+"/bp3.geo")
+        shutil.copy(self.homeDir+self.filesToCopy+"lu_mumps.cfg",self.path+"/lu_mumps.cfg")
+        shutil.copy(self.homeDir++self.filesToCopy+"rk45.cfg",self.path+"/rk45.cfg")
         luaFotter="\n -- adding user choice \n" + self.LuaFooter()
         toml=self.TomlHeader()+self.TomlBody()+self.TomlFotter() # gathering strings for toml file
 
@@ -187,7 +191,42 @@ t_max = 9460800
  
     
 
+#%%
+class bp3_uniform(bp3):
+    def __init__(self,dipAngle=10,slipRate=1e-9,H0=2,H1=8,H2=8,depthVarying=False,endTime=1500*3600*24*365.25,dr=2,path=".",Lf=0.6,Ls=0.6,gf_dir=None,Dc=0.02,normalStress=50,rigidity=30e9):
+        """ get dipAngle in deg
+    slip rate in m/s
+    H0,H,h in km 
+    endTime in second 
+    Dc in meter 
+    and normalStress in MPa"""
+    
+        self.dipAngle=dipAngle
+        self.slipRate=slipRate
+        self.H0=H0
+        self.H1=H1
+        self.H2=H2
+        self.endTime=endTime
+        self.dr=1
+        self.path=path
+        self.Lf=Lf
+        self.Ls=Ls
+        self.gf_dir=gf_dir
+        self.homeDir = os.path.dirname(__file__)
+        self.Dc=Dc
+        self.normalStress=normalStress
+        self.rigidity=rigidity
+        
+        
+    def LuaFooter(self):
+        """ this function add one line of code to the Lua file to based on dipAngle,slipRate and a-b params """
+        
+        
+            
+        output_line = f"bp3_custom = BP3.new{{dip={self.dipAngle}, Vp={self.slipRate},  H0={self.H0}, H={self.H1}, h={self.H2},normalStress={self.normalStress},Dc={self.Dc},rigidity={self.rigidity}}}"
 
+        return output_line
+    
 
 
 
