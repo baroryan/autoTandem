@@ -44,6 +44,9 @@ if __name__ == "__main__":
     parser.add_argument("--depthVarying"  ,help="Check true or false if lame parameters change with depth [true/false]",default=True)
     parser.add_argument("--Ls", type=create_range_validator(0.02,10), help="Min mesh size along surface[km] - larger vaule coraser mesh",default=0.6)
     parser.add_argument("--Lf", type=create_range_validator(0.02,10), help="Min mesh size along fault[km] - larger vaule coraser mesh",default=0.6)
+    parser.add_argument("--Dc", type=create_range_validator(0.0,10), help="Uniform Dc along the fault[m]",default=0.02)
+    parser.add_argument("--normalStress", type=create_range_validator(0.0,1000), help="Uniform normal stress along the fault[MPa]",default=50.0)
+    parser.add_argument("--rigidity", type=create_range_validator(0.0,1000), help="Uniform normal rigidity along the mesh[GPa]",default=30.0)
     parser.add_argument("--gf_dir",type=str , help="Set a green function dir - if not set will not use gf",default="gf")
     parser.add_argument("--dr",type=create_range_validator(0,10),  help="plot every dr along the fault [km]",default=1)
     parser.add_argument("--tandembin",type=str,  help="tandem binary path - default is tandem",default="tandem")
@@ -70,13 +73,13 @@ if __name__ == "__main__":
     args.endTime=endTime.to( ureg.sec).magnitude
     s=np.sin(np.deg2rad(args.dipAngle))
     
-    maxDistance=1.1*(args.H0+args.H1+args.H2)/s
+    maxDepth=(args.H0+args.H1+args.H2)
     maxCanAccomdate=(100/1.1)*s
     
 
     
-    if maxDistance > 100:
-        raise ValueError("H0+H1+H2 is too deep please change so smaller than "+str(np.round(maxCanAccomdate,1)))
+    if maxDepth > 400:
+        raise ValueError("H0+H1+H2 is too deep please change so smaller than 400")
     
     
     dictArgs=vars(args)
@@ -86,7 +89,7 @@ if __name__ == "__main__":
     del dictArgs['tandembin']
     del dictArgs['gmshbin']
     
-    model=autoTandem.bp3(**dictArgs)
+    model=autoTandem.bp3_uniform(**dictArgs)
     
     model.WriteFiles()
     model.ComputeMesh(gmshbin)

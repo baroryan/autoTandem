@@ -62,12 +62,17 @@ class bp3:
             return_code = process.wait()
             
         return return_code
+    
+    def ReturnGmshCommand(self,gmshBin):
+        
+        command = [gmshBin,'-2','bp3.geo','-setnumber', 'dip', str(self.dipAngle),'-setnumber', 'Lf', str(self.Lf),'-setnumber', 'Ls', str(self.Ls)]
+        return command
         
     def ComputeMesh(self,gmshBin,logfile='/meshGeneration.log'):
         """ compute the mesh based on paramters like dip angle and mesh size """
         
         logfile=self.path+"/outputs/"+logfile
-        command = [gmshBin,'-2','bp3.geo','-setnumber', 'dip', str(self.dipAngle),'-setnumber', 'Lf', str(self.Lf),'-setnumber', 'Ls', str(self.Ls)]
+        command=self.ReturnGmshCommand(gmshBin)
         self.WriteCommandStringToFile(command,logfile)
         return_code=self.RunOSCommand(command,logfile)
             
@@ -193,7 +198,7 @@ t_max = 9460800
 
 #%%
 class bp3_uniform(bp3):
-    def __init__(self,dipAngle=10,slipRate=1e-9,H0=2,H1=8,H2=8,depthVarying=False,endTime=1500*3600*24*365.25,dr=2,path=".",Lf=0.6,Ls=0.6,gf_dir=None,Dc=0.02,normalStress=50,rigidity=30e9):
+    def __init__(self,dipAngle=10,slipRate=1e-9,H0=2,H1=8,H2=8,endTime=1500*3600*24*365.25,dr=2,path=".",Lf=0.6,Ls=0.6,gf_dir=None,Dc=0.02,normalStress=50,rigidity=30e9,**kwargs):
         """ get dipAngle in deg
     slip rate in m/s
     H0,H,h in km 
@@ -216,8 +221,10 @@ class bp3_uniform(bp3):
         self.Dc=Dc
         self.normalStress=normalStress
         self.rigidity=rigidity
+        self.LoadFilesToCopy()
         
-        
+    def LoadFilesToCopy(self):
+        self.filesToCopy="/filesToCopyV2/"
     def LuaFooter(self):
         """ this function add one line of code to the Lua file to based on dipAngle,slipRate and a-b params """
         
@@ -226,6 +233,12 @@ class bp3_uniform(bp3):
         output_line = f"bp3_custom = BP3.new{{dip={self.dipAngle}, Vp={self.slipRate},  H0={self.H0}, H={self.H1}, h={self.H2},normalStress={self.normalStress},Dc={self.Dc},rigidity={self.rigidity}}}"
 
         return output_line
+    
+    def ReturnGmshCommand(self,gmshBin):
+        
+        command = [gmshBin,'-2','bp3.geo','-setnumber', 'dip', str(self.dipAngle),'-setnumber', 'Lf', str(self.Lf),'-setnumber', 'Ls', str(self.Ls),'-setnumber','vwMinDepth',str(self.H0),'-setnumber','vwMaxDepth',str(self.H1+self.H0),
+                   '-setnumber','depthfaultEnds',str((self.H0+self.H1+self.H2*1.1))]
+        return command
     
 
 
