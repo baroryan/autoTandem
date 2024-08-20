@@ -11,11 +11,9 @@ This package is designed to generate input files and meshes for the BP3 (thrust/
 
 Run the package by calling `callMeToRunTandem.py` with the following arguments:
 
-```bash
-python callMeToRunTandem.py --argument_name value
-
-
 ### Arguments
+
+python callMeToRunTandem.py --argument_name value
 
 - `--dipAngle DIPANGLE` ........................ Enter a dip angle value between 0 and 90 degrees [deg].
 
