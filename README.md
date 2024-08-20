@@ -7,6 +7,13 @@ This package is designed to generate input files and meshes for the BP3 (thrust/
 - **High-Resolution Mesh Generation**: The mesh is generated with high resolution along the velocity-weakening part of the fault. The mesh size decreases linearly as a function of distance from this section of the fault and the deformation front.
 - **Customizable Input Parameters**: Easily configure simulation parameters, including fault geometry, slip rates, and material properties.
 
+### Figure: Planar Fault Illustration
+
+![Illustration for Planar Fault](pics/Illustration_for_planar_fault.png)
+
+*Figure 1: An illustration of the planar fault scenario used in the BP3 model.*
+
+
 ### Usage
 
 Run the package by calling `callMeToRunTandem.py` with the following arguments:
