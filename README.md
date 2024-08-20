@@ -15,62 +15,48 @@ Run the package by calling `callMeToRunTandem.py` with the following arguments:
 python callMeToRunTandem.py --argument_name value
 
 
-Arguments
---dipAngle DIPANGLE
-Enter a dip angle value between 0 and 90 degrees [deg].
+### Arguments
 
---slipRate SLIPRATE
-Enter a slip rate between -200 and 200 cm/year.
+- `--dipAngle DIPANGLE` ........................ Enter a dip angle value between 0 and 90 degrees [deg].
 
---H0 H0
-a-b rate and state shallowest depth range [km].
+- `--slipRate SLIPRATE` ........................ Enter a slip rate between -200 and 200 cm/year.
 
---H1 H1
-a-b rate and state middle depth range [km].
+- `--H0 H0` ........................................... a-b rate and state shallowest depth range [km].
 
---H2 H2
-a-b rate and state deepest depth range [km].
+- `--H1 H1` ........................................... a-b rate and state middle depth range [km].
 
---endTime ENDTIME
-Simulation runtime [years].
+- `--H2 H2` ........................................... a-b rate and state deepest depth range [km].
 
---path PATH
-Path where the package will run.
+- `--endTime ENDTIME` ........................ Simulation runtime [years].
 
---depthVarying DEPTHVARYING
-Specify if Lame parameters change with depth [true/false].
+- `--path PATH` ....................................... Path where the package will run.
 
---Ls LS
-Minimum mesh size along the surface [km] - larger values result in a coarser mesh.
+- `--depthVarying DEPTHVARYING` .......... Specify if Lame parameters change with depth [true/false].
 
---Lf LF
-Minimum mesh size along the fault [km] - larger values result in a coarser mesh.
+- `--Ls LS` .............................................. Minimum mesh size along the surface [km] - larger values result in a coarser mesh.
 
---Dc Dc
-Uniform Dc along the fault [m].
+- `--Lf LF` ............................................... Minimum mesh size along the fault [km] - larger values result in a coarser mesh.
 
---normalStress NORMALSTRESS
-Uniform normal stress along the domain [MPa].
+- `--Dc Dc` ............................................. Uniform Dc along the fault [m].
 
---rigidity RIGIDITY
-Uniform rigidity along the domain [GPa].
+- `--normalStress NORMALSTRESS` ........ Uniform normal stress along the domain [MPa].
 
---dr DR
-Distance between fault probe stations [km].
+- `--rigidity RIGIDITY` ............................... Uniform rigidity along the domain [GPa].
 
---tandembin TANDEMBIN
-Tandem binary path - default is tandem.
+- `--dr DR` ................................................ Distance between fault probe stations [km].
 
---gmshbin GMSHBIN
-Gmsh binary path - default is gmsh.
+- `--tandembin TANDEMBIN` .................... Tandem binary path - default is `tandem`.
 
-Dependencies
+- `--gmshbin GMSHBIN` .......................... Gmsh binary path - default is `gmsh`.
+
+### Dependencies
+
 Ensure the following are installed before running the package:
 
-Tandem and Gmsh binaries
-Python environment with the following packages:
-xarray
-numpy
-pint
-matplotlib
-pandas
+- **Tandem** and **Gmsh** binaries
+- Python environment with the following packages:
+  - `xarray`
+  - `numpy`
+  - `pint`
+  - `matplotlib`
+  - `pandas`
