@@ -137,7 +137,7 @@ class bp3:
         shutil.copy(self.homeDir+self.filesToCopy+"bp3.lua",self.path+"/bp3.lua")
         shutil.copy(self.homeDir+self.filesToCopy+"bp3.geo",self.path+"/bp3.geo")
         shutil.copy(self.homeDir+self.filesToCopy+"lu_mumps.cfg",self.path+"/lu_mumps.cfg")
-        shutil.copy(self.homeDir++self.filesToCopy+"rk45.cfg",self.path+"/rk45.cfg")
+        shutil.copy(self.homeDir+self.filesToCopy+"rk45.cfg",self.path+"/rk45.cfg")
         luaFotter="\n -- adding user choice \n" + self.LuaFooter()
         toml=self.TomlHeader()+self.TomlBody()+self.TomlFotter() # gathering strings for toml file
 
