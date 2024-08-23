@@ -87,7 +87,7 @@ end
 
 function BP3:sn_pre(x, y)
 
-    return normalStress
+    return self.normalStress
 
 end
 
