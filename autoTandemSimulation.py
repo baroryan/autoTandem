@@ -154,10 +154,14 @@ class bp3:
         
         return f"final_time = {self.endTime}"
     
+    
+    def ComputeRmax(self):
+        return (1.1*(self.H0+self.H1+self.H2))/np.sin(np.deg2rad(self.dipAngle))
+    
     def TomlFotter(self):
         """ this function compute where to add sites along the fault for plotting """
         
-        Rmax=(1.1*(self.H0+self.H1+self.H2))/np.sin(np.deg2rad(self.dipAngle))
+        Rmax=self.ComputeRmax()
         #print(Rmax)
         string=generateTomlFile.ComputePointsForPlanarFaultBasedOnDistanceAlongFault(self.dipAngle,dy=self.dr,ymin=0,ymax=Rmax)
         
@@ -239,6 +243,9 @@ class bp3_uniform(bp3):
         command = [gmshBin,'-2','bp3.geo','-setnumber', 'dip', str(self.dipAngle),'-setnumber', 'Lf', str(self.Lf),'-setnumber', 'Ls', str(self.Ls),'-setnumber','vwMinDepth',str(self.H0),'-setnumber','vwMaxDepth',str(self.H1+self.H0),
                    '-setnumber','depthfaultEnds',str((self.H0+self.H1+self.H2*1.1))]
         return command
+    
+    def ComputeRmax(self):
+        return ((self.H0+self.H1+self.H2*1.1))/np.sin(np.deg2rad(self.dipAngle))
     
 
 
