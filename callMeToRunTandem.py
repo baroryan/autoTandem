@@ -51,6 +51,7 @@ if __name__ == "__main__":
     parser.add_argument("--dr",type=create_range_validator(0,10),  help="plot every dr along the fault [km]",default=1)
     parser.add_argument("--tandembin",type=str,  help="tandem binary path - default is tandem",default="tandem")
     parser.add_argument("--gmshbin",type=str,  help="gmsh binary path - default is gmsh",default="gmsh")
+    parser.add_argument("--numOfCores",type=int,  help="numberOfMpiRanks",default=1)
     
     args = parser.parse_args()
     
@@ -80,6 +81,9 @@ if __name__ == "__main__":
     
     if maxDepth > 400:
         raise ValueError("H0+H1+H2 is too deep please change so smaller than 400")
+        
+    if args.numOfCores<1:
+        raise ValueError("number of cores needs to be larger than zero and an integer")
     
     
     dictArgs=vars(args)
@@ -93,6 +97,6 @@ if __name__ == "__main__":
     
     model.WriteFiles()
     model.ComputeMesh(gmshbin)
-    model.RunEQSimulation(tandembin)
+    model.RunEQSimulation(tandembin,n=args.numOfCores)
     model.PlotSlipMaxVel()
 

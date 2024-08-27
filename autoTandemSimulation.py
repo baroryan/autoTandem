@@ -21,7 +21,7 @@ import os
 #%%
 
 class bp3:
-    def __init__(self,dipAngle=10,slipRate=1e-9,H0=2,H1=8,H2=8,depthVarying=False,endTime=1500*3600*24*365.25,dr=2,path=".",Lf=0.6,Ls=0.6,gf_dir=None):
+    def __init__(self,dipAngle=10,slipRate=1e-9,H0=2,H1=8,H2=8,depthVarying=False,endTime=1500*3600*24*365.25,dr=2,path=".",Lf=0.6,Ls=0.6,gf_dir=None,**kwargs):
         """ get dipAngle in deg
     slip rate in m/s
     H0,H,h in km 
@@ -95,7 +95,7 @@ class bp3:
         
         fig,ax=plt.subplots(2,1,figsize=(10,10))
         readtandemoutput.PlotSlipFrequnelty(ds['slip0'].values, ds['Time'].values, 5, np.abs(ds['z'].values),plotAttributes=coseismic,ax=ax[0],coseismic=True)
-        readtandemoutput.PlotSlipFrequnelty(ds['slip0'].values, ds['Time'].values, 3600*24*365*5, np.abs(ds['z'].values),plotAttributes=interseismic,ax=ax[0],coseismic=False)
+        readtandemoutput.PlotSlipFrequnelty(ds['slip0'].values, ds['Time'].values, 3600*24*365.25*5, np.abs(ds['z'].values),plotAttributes=interseismic,ax=ax[0],coseismic=False)
         
         highest_velocity = ds['slip-rate0'].max(['z']).values
         ax[1].plot(ds['years'],np.log10(highest_velocity))
@@ -110,11 +110,11 @@ class bp3:
         
         
         
-    def RunEQSimulation(self,tandemBinaryPath,logfile='/tandemSimulation.log'):
+    def RunEQSimulation(self,tandemBinaryPath,logfile='/tandemSimulation.log',n=1):
         """ run tandem simultion with or without gf """
         
         logfile=self.path+"/outputs/"+logfile
-        command = [tandemBinaryPath, 'bp3.toml','--mode', 'QDGreen','--gf_checkpoint_prefix', self.gf_dir, '--petsc', '-ts_monitor', '-options_file', 'rk45.cfg', '-options_file', 'lu_mumps.cfg']
+        command = ['mpirun','-n',n,tandemBinaryPath, 'bp3.toml','--mode', 'QDGreen','--gf_checkpoint_prefix', self.gf_dir, '--petsc', '-ts_monitor', '-options_file', 'rk45.cfg', '-options_file', 'lu_mumps.cfg']
         
         if self.gf_dir is None:
             command=command[:2] + command[6:]
@@ -124,10 +124,10 @@ class bp3:
         return_code=self.RunOSCommand(command,logfile)
             
         if return_code == 0:
-            print("Earth simulations finished successfully.")
+            print("EQ simulation finished successfully.")
             
         else:
-            print(f"EQ simulations failed with return code: {return_code}. Check  log file")
+            print(f"EQ simulation failed with return code: {return_code}. Check  log file")
             raise ValueError("byebye")
         
         
