@@ -18,6 +18,7 @@ import readtandemoutput
 import xarray as xr
 import matplotlib.pyplot as plt
 import os
+import cmap_tandem  ###  Jenna Yun contribution !
 #%%
 
 class bp3:
@@ -107,6 +108,37 @@ class bp3:
         ax[0].set_xlabel('Slip [m]')
                    
         fig.savefig(self.path+"//outputs/slipMaxVel.pdf",dpi=300)
+        
+        
+    def PlotSlipVel(self):
+        """ plotting slip along fault and max vel """
+        
+    
+        cmap_coseismic=cmap_tandem.ReturnCmap(vmin=1e-19, vmax=1,Vths=1e-4) ###  Jenna Yun contribution !
+        
+        ds=readtandemoutput.ReturnDataSets(self.path+"/outputs/")
+        interface=xr.concat(ds, 'z')
+        
+        
+        fig,ax=plt.subplots(1,1,figsize=(10,10))
+        aspect=len(interface['Time'])/(np.max(np.abs(interface['z']))-np.min(np.abs(interface['z'])))
+        aspect=aspect/5 #ration of 1/5
+        cb=ax.imshow(np.log10(np.abs(interface['slip-rate0'])),cmap=cmap_coseismic,aspect=aspect,extent=[0,len(interface['Time']),np.max(-interface['z']),np.min(-interface['z'])],vmin=-18,vmax=1)
+
+        
+        cbar2 = fig.colorbar(cb, ax=ax, orientation='horizontal', pad=0.2, fraction=0.08, location='top')
+        
+        # Set title for the colorbar
+        cbar2.set_label(r'$\log_{10}(\mathrm{Slip \ Vel})$', fontsize=9)
+        
+        # Set custom ticks and tick labels
+        cbar2.set_ticks([-15, -12, np.log10(self.slipRate), -6, -3, 0])
+        cbar2.set_ticklabels([r'$10^{-15}$', r'$10^{-12}$', r'$V_p$', r'$V_0$', r'$10^{-3}$', r'$10^{0}$'])
+        ax.set_xlabel('Time step []')
+        ax.set_ylabel('Depth[km]')
+    
+                   
+        fig.savefig(self.path+"//outputs/SlipVelFigure.pdf",dpi=300)
         
         
         

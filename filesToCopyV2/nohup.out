@@ -1,0 +1,10 @@
+[87952:90167:0907/223243.936128:ERROR:database.cc(1696)] Cookie sqlite error 5, errno 0: database is locked, sql: PRAGMA auto_vacuum
+[87952:90167:0907/223243.938108:ERROR:database.cc(1696)] Cookie sqlite error 5, errno 0: database is locked, sql: PRAGMA journal_mode=TRUNCATE
+[87952:90167:0907/223243.941328:ERROR:database.cc(1696)] Cookie sqlite error 5, errno 0: database is locked, sql: SELECT 1 FROM sqlite_master WHERE type=? AND name=?
+[87952:90167:0907/223243.943938:ERROR:database.cc(1696)] Cookie sqlite error 5, errno 0: database is locked, sql: SELECT 1 FROM sqlite_master WHERE type=? AND name=?
+[87952:90167:0907/223243.944197:ERROR:database.cc(1696)] Cookie sqlite error 5, errno 0: database is locked, sql: CREATE TABLE meta(key LONGVARCHAR NOT NULL UNIQUE PRIMARY KEY, value LONGVARCHAR)
+[87952:90167:0907/223243.963085:ERROR:database.cc(1696)] Cookie sqlite error 5, errno 0: database is locked, sql: PRAGMA auto_vacuum
+[87952:90167:0907/223243.963125:ERROR:database.cc(1696)] Cookie sqlite error 5, errno 0: database is locked, sql: PRAGMA journal_mode=TRUNCATE
+[87952:90167:0907/223243.963154:ERROR:database.cc(1696)] Cookie sqlite error 5, errno 0: database is locked, sql: SELECT 1 FROM sqlite_master WHERE type=? AND name=?
+[87952:90167:0907/223243.963202:ERROR:database.cc(1696)] Cookie sqlite error 5, errno 0: database is locked, sql: SELECT 1 FROM sqlite_master WHERE type=? AND name=?
+[87952:90167:0907/223243.963219:ERROR:database.cc(1696)] Cookie sqlite error 5, errno 0: database is locked, sql: CREATE TABLE meta(key LONGVARCHAR NOT NULL UNIQUE PRIMARY KEY, value LONGVARCHAR)
