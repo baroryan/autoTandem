@@ -73,7 +73,7 @@ Plane Surface(2) = {2};
 /* Bottom: Free-surface */
 Physical Curve(3) = {12,13,14};
 Physical Curve(1) = {1, 2, 4, 5};
-Physical Curve(5) = {3, 6, 14};
+Physical Curve(5) = {3, 6, 15};
 
 Physical Surface(1) = {1};
 Physical Surface(2) = {2};
