@@ -18,6 +18,10 @@ data for these fault probes under outputs/fltst_*.
 Once the app completes these tasks, it runs Tandem (Uphoff et al., 2023) using the command found in
 outputs/tandemSimulation.log, and then plots the slip rate along the fault over time (outputs/slipVelFigure.pdf).
 
+The Python code that orchestrates all of buliding this setup automatically based on user input can be
+found on GitHub at:
+https://github.com/baroryan/autoTandem.
+
 If you are interested in running more complex scenarios, feel free to use the Tandem 2D/Tandem 3D apps,
 which require you to upload a mesh file, TOML file, and Lua scripts.
 
@@ -26,12 +30,8 @@ https://github.com/TEAR-ERC/tandem
 or the Tandem documentation at:
 https://tandem.readthedocs.io/.
 
-The Python code that orchestrates the gateway app and shows how to set up the environment can also be
-found on GitHub at:
-https://github.com/baroryan/autoTandem.
-
 If you'd like to run Tandem on your laptop without compiling all the dependencies, you can use the
- virtual machine (based on UTM) for Mac M1/M2/M3 available here:
+ UTM virtual machine for Mac M1/M2/M3 available here:
 https://zenodo.org/records/12365886.
 
 Good luck, and let us know if you need more help through our GitHub page.
