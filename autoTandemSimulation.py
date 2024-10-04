@@ -120,7 +120,7 @@ class bp3:
         interface=xr.concat(ds, 'z')
         
         
-        fig,ax=plt.subplots(1,1,figsize=(10,10))
+        fig,ax=plt.subplots(1,1,figsize=(12,4))
         aspect=len(interface['Time'])/(np.max(np.abs(interface['z']))-np.min(np.abs(interface['z'])))
         aspect=aspect/5 #ration of 1/5
         cb=ax.imshow(np.log10(np.abs(interface['slip-rate0'])),cmap=cmap_coseismic,aspect=aspect,extent=[0,len(interface['Time']),np.max(-interface['z']),np.min(-interface['z'])],vmin=-18,vmax=1)
