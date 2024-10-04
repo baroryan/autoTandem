@@ -48,7 +48,7 @@ if __name__ == "__main__":
     parser.add_argument("--normalStress", type=create_range_validator(0.0,1000), help="Uniform normal stress along the fault[MPa]",default=50.0)
     parser.add_argument("--rigidity", type=create_range_validator(0.0,1000), help="Uniform normal rigidity along the mesh[GPa]",default=30.0)
     parser.add_argument("--gf_dir",type=str , help="Set a green function dir - if not set will not use gf",default="gf")
-    parser.add_argument("--dr",type=create_range_validator(0,10),  help="plot every dr along the fault [km]",default=3)
+    parser.add_argument("--dr",type=create_range_validator(0,10),  help="plot every dr along the fault [km]",default=0.5)
     parser.add_argument("--tandembin",type=str,  help="tandem binary path - default is tandem",default="tandem")
     parser.add_argument("--gmshbin",type=str,  help="gmsh binary path - default is gmsh",default="gmsh")
     parser.add_argument("--numOfCores",type=int,  help="numberOfMpiRanks",default=1)
