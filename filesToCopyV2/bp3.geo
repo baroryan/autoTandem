@@ -79,7 +79,7 @@ Physical Surface(1) = {1};
 Physical Surface(2) = {2};
 
 Field[1] = Distance;
-Field[1].CurvesList = {13}; // Distance from high resolution fault line
+Field[1].CurvesList = {12,13,14}; // Distance from high resolution fault line
 Field[1].NumPointsPerCurve = 100000;
 
 Field[2] = MathEval;
